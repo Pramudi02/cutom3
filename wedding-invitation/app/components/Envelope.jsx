@@ -24,7 +24,7 @@ export default function Envelope({ config, onOpen, labels = {}, birthdayData = n
     setTimeout(() => onOpen(), 1000);
   };
 
-  const bgImage = config?.coverImage || null;
+  const bgImage = config?.envelope?.bgImage || config?.coverImage || null;
   const themeColor = config?.theme?.colorPrimary || '#7eb5b2';
   
   const dynamicNamesHere = birthdayData?.celebrantName

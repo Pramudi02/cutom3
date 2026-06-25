@@ -69,7 +69,7 @@ export const hardcodedConfig = {
     title: 'A Wedding Invitation',
     subtitle: 'Rajitha & Sayuri',
     buttonText: 'Open Invitation',
-    bgImage: '',
+    bgImage: '/images/bg_hero_lotus.png',
     waxSealImage: '/images/wax-seal.png',
     premium: {
       waxSealColor: '#8a0303',
