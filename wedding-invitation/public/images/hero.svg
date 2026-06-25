@@ -1,0 +1,73 @@
+<svg width="600" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8F0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFE8D6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+    </filter>
+  </defs>
+
+  <!-- Background gradient -->
+  <rect width="600" height="800" fill="url(#heroGrad)"/>
+
+  <!-- Soft gold accent -->
+  <circle cx="300" cy="100" r="80" fill="#D4AF37" opacity="0.15"/>
+
+  <!-- Lotus flowers - top corners -->
+  <g opacity="0.4">
+    <!-- Top left lotus -->
+    <circle cx="80" cy="120" r="4" fill="#E91E63"/>
+    <circle cx="75" cy="115" r="4" fill="#E91E63"/>
+    <circle cx="85" cy="115" r="4" fill="#E91E63"/>
+    <circle cx="70" cy="120" r="3" fill="#C2185B"/>
+    <circle cx="90" cy="120" r="3" fill="#C2185B"/>
+    <circle cx="80" cy="105" r="3" fill="#C2185B"/>
+    <!-- Center -->
+    <circle cx="80" cy="120" r="2" fill="#FFD700"/>
+  </g>
+
+  <!-- Top right lotus -->
+  <g opacity="0.4">
+    <circle cx="520" cy="120" r="4" fill="#E91E63"/>
+    <circle cx="515" cy="115" r="4" fill="#E91E63"/>
+    <circle cx="525" cy="115" r="4" fill="#E91E63"/>
+    <circle cx="510" cy="120" r="3" fill="#C2185B"/>
+    <circle cx="530" cy="120" r="3" fill="#C2185B"/>
+    <circle cx="520" cy="105" r="3" fill="#C2185B"/>
+    <circle cx="520" cy="120" r="2" fill="#FFD700"/>
+  </g>
+
+  <!-- Main content area - cream with border -->
+  <rect x="40" y="150" width="520" height="550" rx="20" fill="#FFFBF7" stroke="#D4AF37" stroke-width="2"/>
+
+  <!-- Decorative header -->
+  <rect x="60" y="170" width="480" height="3" fill="#E91E63" opacity="0.3"/>
+
+  <!-- Couple initials placeholder -->
+  <g font-family="Georgia, serif" text-anchor="middle">
+    <text x="300" y="320" font-size="48" font-weight="bold" fill="#2C3E50" opacity="0.7">R & S</text>
+    <text x="300" y="360" font-size="24" fill="#E91E63" font-style="italic">Rajitha & Sayuri</text>
+  </g>
+
+  <!-- Decorative bottom -->
+  <rect x="60" y="680" width="480" height="3" fill="#E91E63" opacity="0.3"/>
+
+  <!-- Corner lotus flowers - bottom -->
+  <g opacity="0.3">
+    <!-- Bottom left -->
+    <circle cx="100" cy="720" r="3" fill="#E91E63"/>
+    <circle cx="95" cy="715" r="3" fill="#E91E63"/>
+    <circle cx="105" cy="715" r="3" fill="#E91E63"/>
+    <circle cx="100" cy="720" r="1.5" fill="#FFD700"/>
+  </g>
+
+  <g opacity="0.3">
+    <!-- Bottom right -->
+    <circle cx="500" cy="720" r="3" fill="#E91E63"/>
+    <circle cx="495" cy="715" r="3" fill="#E91E63"/>
+    <circle cx="505" cy="715" r="3" fill="#E91E63"/>
+    <circle cx="500" cy="720" r="1.5" fill="#FFD700"/>
+  </g>
+</svg>

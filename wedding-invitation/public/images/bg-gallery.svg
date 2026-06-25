@@ -1,0 +1,30 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="galleryGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" style="stop-color:#FFF9F5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFE0CC;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#galleryGrad)"/>
+
+  <!-- Lotus petals pattern -->
+  <g opacity="0.1">
+    <!-- Petals in circle -->
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(0 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(45 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(90 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(135 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(180 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(225 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(270 960 540)"/>
+    <ellipse cx="960" cy="540" rx="120" ry="40" fill="#E91E63" transform="rotate(315 960 540)"/>
+
+    <!-- Center -->
+    <circle cx="960" cy="540" r="20" fill="#FFD700"/>
+  </g>
+
+  <!-- Corner decorations -->
+  <circle cx="150" cy="150" r="100" fill="#D4AF37" opacity="0.05"/>
+  <circle cx="1770" cy="930" r="100" fill="#D4AF37" opacity="0.05"/>
+</svg>
