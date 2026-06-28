@@ -11,6 +11,7 @@ import Countdown from './components/Countdown';
 import PremiumEnvelope from './components/PremiumEnvelope';
 import RoyalEnvelope from './components/RoyalEnvelope';
 import MintEnvelope from './components/MintEnvelope';
+import ElegantPhotoEnvelope from './components/ElegantPhotoEnvelope';
 import UniversalPreloader from './components/UniversalPreloader';
 
 // Lazy load heavy components that are below the fold
@@ -209,6 +210,8 @@ export default function ClientHome({ config }) {
               <RoyalEnvelope key="royal-envelope" config={config} onOpen={handleOpen} birthdayData={birthdayData} generalData={generalData} />
             ) : (revealStyle === 'mint-envelope' || revealStyle === 'mint_envelope') ? (
               <MintEnvelope key="mint-envelope" config={config} onOpenInvitation={handleOpen} />
+            ) : (revealStyle === 'elegant-photo' || revealStyle === 'elegant_photo') ? (
+              <ElegantPhotoEnvelope key="elegant-photo-envelope" config={config} onOpenInvitation={handleOpen} onOpenReception={handleOpen} />
             ) : (
               <Envelope key="envelope-layer" config={config} onOpen={handleOpen} labels={labels} birthdayData={birthdayData} generalData={generalData} />
             )

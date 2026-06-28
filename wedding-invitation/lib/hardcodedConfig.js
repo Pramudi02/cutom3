@@ -46,7 +46,7 @@ export const hardcodedConfig = {
       gallerySubtitle: 'A glimpse into our beautiful journey'
     }
   },
-  revealStyle: 'envelope',
+  revealStyle: 'elegant-photo',
   theme: {
     colorPrimary: '#d40067',
     colorSecondary: '#e7d69c',
