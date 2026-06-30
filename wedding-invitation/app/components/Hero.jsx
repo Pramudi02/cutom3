@@ -159,12 +159,26 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
       <SvgFloralCorner path="/images/flowers/bottom-right.svg" className="-bottom-12 -right-12 rotate-[-5deg]" delay={0.9} />
 
       {/* ── CONTENT AREA ── */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.2 }}
         className="text-center z-10 w-full max-w-2xl px-6"
       >
+        {/* Decorative Bow */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="mb-6"
+        >
+          <img
+            src="/images/bow.webp"
+            alt="Decorative Bow"
+            className="w-16 h-16 md:w-20 md:h-20 mx-auto drop-shadow-md"
+          />
+        </motion.div>
+
         <div className="flex flex-col items-center justify-center mb-4">
           <div className="flex items-center gap-3 mb-3 group">
             <div className="h-px w-5 md:w-10 bg-[var(--colorPrimary)]/20 transition-all group-hover:w-14" />
