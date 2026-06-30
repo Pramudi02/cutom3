@@ -79,7 +79,7 @@ export const hardcodedConfig = {
   sectionBackgrounds: {
     hero: '/images/h-bg.png',
     story: '/images/hero-bg.png',
-    events: '/images/bg_events_lotus.png',
+    events: '/images/bgwater.png',
     footer: ''
   },
   sharePreviewImageUrl: '',

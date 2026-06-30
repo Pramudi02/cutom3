@@ -29,12 +29,24 @@ const FallingPetals = lazy(() => import('./components/FallingPetals'));
 import { PRESET_THEMES } from '../lib/themes';
 import { getLabels } from '../lib/eventLabels';
 
+function ImageOnlySections({ images = [] }) {
+  return images.map((image, index) => (
+    <section key={image.src || index} className="w-full bg-[var(--colorBg)] overflow-hidden">
+      <img
+        src={image.src}
+        alt={image.alt || ''}
+        className="block w-full h-auto object-contain"
+        loading={index === 0 ? 'eager' : 'lazy'}
+      />
+    </section>
+  ));
+}
 
 export default function ClientHome({ config }) {
   const audioRef = useRef(null);
   const interactionHandledRef = useRef(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [hasOpened, setHasOpened] = useState(false);
+  const [hasOpened, setHasOpened] = useState(Boolean(config.skipReveal));
 
   // Use useSyncExternalStore for robust hydration handling
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
@@ -119,6 +131,7 @@ export default function ClientHome({ config }) {
     colorTextDark: resolvedColors?.colorTextDark || '#2C2018',
     colorBg: resolvedColors?.colorBg || '#FAF7F2',
     colorSurface: resolvedColors?.colorSurface || '#FFFFFF',
+    colorAccent: resolvedColors?.colorAccent || resolvedColors?.colorSecondary || '#E4911E',
     heroOverlayStart: resolvedColors?.heroOverlayStart || 'rgba(18, 12, 6, 0.55)',
     heroOverlayEnd: resolvedColors?.heroOverlayEnd || 'rgba(18, 12, 6, 0.25)',
   };
@@ -133,6 +146,7 @@ export default function ClientHome({ config }) {
       --colorTextDark: ${theme.colorTextDark};
       --colorBg: ${theme.colorBg};
       --colorSurface: ${theme.colorSurface};
+      --colorAccent: ${theme.colorAccent};
       --heroOverlayStart: ${theme.heroOverlayStart};
       --heroOverlayEnd: ${theme.heroOverlayEnd};
     }
@@ -164,6 +178,9 @@ export default function ClientHome({ config }) {
           <Navbar config={config} birthdayData={birthdayData} generalData={generalData} />
           <Hero config={config} isOpened={hasOpened} labels={labels} birthdayData={birthdayData} generalData={generalData} />
           <Countdown config={config} labels={labels} />
+          {config?.afterCountdownImages?.length > 0 && (
+            <ImageOnlySections images={config.afterCountdownImages} />
+          )}
           <Suspense fallback={<LoadingFallback />}>
             <StorySection config={config} labels={labels} />
           </Suspense>
@@ -225,6 +242,15 @@ export default function ClientHome({ config }) {
           className={!hasOpened ? "opacity-0 pointer-events-none fixed inset-0 z-[-1]" : ""}
         >
         {mainContent}
+        {config.skipReveal && (
+          <a
+            href={config.openingPageUrl || '/rajitha-sayuri'}
+            className="fixed top-4 right-4 z-[10000] rounded-full border border-white/50 bg-white/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--colorTextDark)] shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-[var(--colorPrimary)] active:scale-95"
+            aria-label="Close invitation and return to opening page"
+          >
+            Close
+          </a>
+        )}
         {/* Floating audio toggle */}
         {config.audioUrl && (
           <button

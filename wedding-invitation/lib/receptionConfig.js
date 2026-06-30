@@ -25,13 +25,24 @@ export const receptionConfig = {
   },
   extraEvents: [],
   audioUrl: '',
-  heroImage: '/images/hero-COUPLE.png',
+  heroImage: '/images/2ndInvitation/hero.png',
   heroVideo: '',
   heroLayout: 6,
+  afterCountdownImages: [
+    {
+      src: '/images/2ndInvitation/dress.jpeg',
+      alt: 'Reception dress details'
+    },
+    {
+      src: '/images/2ndInvitation/events.jpeg',
+      alt: 'Reception event details'
+    }
+  ],
   revealStyle: 'elegant-photo',
   theme: {
     colorPrimary: '#DD1F55',
     colorSecondary: '#EB7D3D',
+    colorAccent: '#E4911E',
     colorTextLight: '#E4C7A5',
     colorTextDark: '#9C9851',
     colorBg: '#FFFBF7',
@@ -61,8 +72,8 @@ export const receptionConfig = {
   sectionBackgrounds: {
     hero: '/images/h-bg.png',
     story: '/images/hero-bg.png',
-    events: '/images/bg_events_lotus.png',
-    rsvp: '/images/ffff.png',
+    events: '/images/2ndInvitation/celebration-bg.jpg',
+    // rsvp: '/images/ffff.png',
     footer: ''
   },
   sharePreviewImageUrl: '',

@@ -1,6 +1,7 @@
 import { Playfair_Display, Montserrat, Alex_Brush, Noto_Sans_Sinhala } from 'next/font/google';
 import './globals.css';
 import ServiceWorkerRegistration from './components/ServiceWorkerRegistration';
+import { hardcodedConfig } from '@/lib/hardcodedConfig';
 
 const notoSinhala = Noto_Sans_Sinhala({
   subsets: ['sinhala'],
@@ -29,38 +30,9 @@ const montserrat = Montserrat({
   display: 'swap',
 });
 
-/** Load config: try MongoDB first, fallback to local file */
-async function loadConfig() {
-  // 1. Try MongoDB
-  try {
-    if (process.env.MONGODB_URI) {
-      const getMongoClientPromise = (await import('@/lib/mongodb')).default;
-      const client = await getMongoClientPromise();
-      const db = client.db('wedding_app');
-      const doc = await db.collection('settings').findOne({ _id: 'global_config' });
-      if (doc) {
-        const { _id, ...config } = doc;
-        return config;
-      }
-    }
-  } catch (e) {
-    console.warn('[layout] MongoDB unavailable, falling back to local config:', e.message);
-  }
-
-  // 2. Fallback to local file
-  try {
-    const { readFileSync } = await import('fs');
-    const { join } = await import('path');
-    const raw = readFileSync(join(process.cwd(), 'data', 'config.json'), 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return {};
-  }
-}
-
 export async function generateMetadata() {
   try {
-    const config = await loadConfig();
+    const config = hardcodedConfig;
     const title = config.meta?.title || 'Wedding Invitation';
     const description = config.meta?.description || 'You are invited!';
     const ogImage = config.sharePreviewImageUrl || '';

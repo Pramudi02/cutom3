@@ -22,7 +22,10 @@ export default function Hero({ config, isOpened, labels = {}, birthdayData = nul
     <section
       id="hero"
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500"
-      style={{ backgroundColor: 'var(--colorBg)' }}
+      style={{
+        background:
+          'linear-gradient(145deg, color-mix(in srgb, var(--colorTextLight) 55%, white) 0%, var(--colorBg) 38%, color-mix(in srgb, var(--colorAccent) 14%, var(--colorBg)) 72%, color-mix(in srgb, var(--colorSecondary) 20%, var(--colorBg)) 100%)'
+      }}
     >
       {/* ── HERO VIDEO BACKGROUND ── */}
       {config.heroVideo && (
@@ -65,8 +68,13 @@ export default function Hero({ config, isOpened, labels = {}, birthdayData = nul
           }}
         />
       )}
-      <div className="absolute inset-0 bg-black/10 z-[1] pointer-events-none" />
-      <div className="absolute inset-0 pointer-events-none z-[1]" style={{ background: 'radial-gradient(circle at 50% 50%, var(--colorPrimary) 0%, transparent 60%)', opacity: 0.03 }} />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--colorPrimary) 28%, transparent) 0%, transparent 26%), radial-gradient(circle at 88% 24%, color-mix(in srgb, var(--colorSecondary) 32%, transparent) 0%, transparent 28%), radial-gradient(circle at 50% 92%, color-mix(in srgb, var(--colorAccent) 24%, transparent) 0%, transparent 34%), linear-gradient(to bottom, rgba(255,255,255,0.16), rgba(255,255,255,0.02))'
+        }}
+      />
       <div className="relative z-10 w-full flex justify-center py-20 px-4">
         <Layout6 config={config} labels={labels} birthdayData={birthdayData} generalData={generalData} />
       </div>
@@ -93,8 +101,8 @@ function SvgFloralCorner({ path, className, delay = 0 }) {
           maskSize: 'contain',
           maskRepeat: 'no-repeat',
           maskPosition: 'center',
-          backgroundColor: 'var(--colorPrimary)',
-          opacity: 0.15,
+          background: 'linear-gradient(135deg, var(--colorPrimary), var(--colorSecondary), var(--colorAccent))',
+          opacity: 0.2,
           filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.1))'
         }} 
       />
@@ -151,7 +159,13 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
   };
 
   return (
-    <div className="flex flex-col items-center w-full min-h-[70vh] justify-start pt-12 md:pt-20 pb-8 px-0 relative bg-white/40 overflow-hidden">
+    <div
+      className="flex flex-col items-center w-full min-h-[70vh] justify-start pt-12 md:pt-20 pb-8 px-0 relative overflow-hidden border border-white/40 shadow-[0_30px_90px_rgba(221,31,85,0.14)]"
+      style={{
+        background:
+          'linear-gradient(180deg, color-mix(in srgb, var(--colorTextLight) 48%, white) 0%, rgba(255,255,255,0.68) 36%, color-mix(in srgb, var(--colorSecondary) 13%, white) 100%)'
+      }}
+    >
       {/* ── CUSTOM FLORAL CORNERS ── */}
       <SvgFloralCorner path="/images/flowers/top-left.svg" className="-top-12 -left-12 rotate-[-5deg]" delay={0} />
       <SvgFloralCorner path="/images/flowers/top-right.svg" className="-top-12 -right-12 rotate-[5deg]" delay={0.3} />
@@ -181,23 +195,24 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
 
         <div className="flex flex-col items-center justify-center mb-4">
           <div className="flex items-center gap-3 mb-3 group">
-            <div className="h-px w-5 md:w-10 bg-[var(--colorPrimary)]/20 transition-all group-hover:w-14" />
+            <div className="h-px w-5 md:w-10 transition-all group-hover:w-14" style={{ background: 'linear-gradient(to right, var(--colorPrimary), var(--colorSecondary))' }} />
             {names.showBoth
-              ? <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-[var(--colorTextDark)]/60 font-bold">The Wedding of</p>
-              : <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-[var(--colorTextDark)]/60 font-bold">You are invited</p>
+              ? <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorTextDark)' }}>The Wedding of</p>
+              : <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorTextDark)' }}>You are invited</p>
             }
+            <div className="h-px w-5 md:w-10 transition-all group-hover:w-14" style={{ background: 'linear-gradient(to right, var(--colorSecondary), var(--colorAccent))' }} />
           </div>
-          <h1 className="font-script text-[clamp(50px,10vw,80px)] text-[var(--colorPrimary)] mb-1 leading-[0.7]">
+          <h1 className="font-script text-[clamp(50px,10vw,80px)] mb-1 leading-[0.7] drop-shadow-sm" style={{ color: 'var(--colorPrimary)' }}>
             {names.name1}
           </h1>
           {names.showBoth && (
             <>
               <div className="flex items-center gap-2 my-1">
-                 <div className="w-1 h-1 rounded-full border border-[var(--colorSecondary)]/30" />
-                 <span className="font-serif text-xl text-[var(--colorSecondary)]/40 italic font-light lowercase">and</span>
-                 <div className="w-1 h-1 rounded-full border border-[var(--colorSecondary)]/30" />
+                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--colorAccent)' }} />
+                 <span className="font-serif text-xl italic font-light lowercase" style={{ color: 'var(--colorSecondary)' }}>and</span>
+                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--colorAccent)' }} />
               </div>
-              <h1 className="font-script text-[clamp(50px,10vw,80px)] text-[var(--colorPrimary)] leading-[0.7]">
+              <h1 className="font-script text-[clamp(50px,10vw,80px)] leading-[0.7] drop-shadow-sm" style={{ color: 'var(--colorPrimary)' }}>
                 {names.name2}
               </h1>
             </>
@@ -206,16 +221,21 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
 
         {/* Elegant Garden Plaque with Calendar trigger */}
         <div className="relative inline-block group">
-          <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-[50px_15px_50px_15px] shadow-[0_10px_30px_rgba(0,0,0,0.05)] -z-10 group-hover:bg-white/60 transition-colors duration-500" />
-          <div className="px-8 md:px-12 py-4 md:py-6 border border-[var(--colorPrimary)]/10 rounded-[50px_15px_50px_15px] relative">
+          <div className="absolute inset-0 backdrop-blur-sm rounded-[50px_15px_50px_15px] shadow-[0_16px_34px_rgba(228,145,30,0.18)] -z-10 transition-colors duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.78), color-mix(in srgb, var(--colorTextLight) 30%, white))' }} />
+          <div className="px-8 md:px-12 py-4 md:py-6 border rounded-[50px_15px_50px_15px] relative" style={{ borderColor: 'color-mix(in srgb, var(--colorPrimary) 26%, transparent)' }}>
             <p className="font-serif text-xl md:text-2xl text-[var(--colorTextDark)] tracking-wider mb-1">{wedding?.displayDate}</p>
-            <div className="h-px w-8 bg-[var(--colorPrimary)]/30 mx-auto my-2" />
+            <div className="h-px w-12 mx-auto my-2" style={{ background: 'linear-gradient(to right, var(--colorPrimary), var(--colorSecondary), var(--colorAccent))' }} />
             
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleSaveToCalendar}
-              className="px-4 py-1 rounded-full border border-[var(--colorPrimary)]/20 font-sans text-[9px] tracking-[0.2em] uppercase text-[var(--colorPrimary)] font-black flex items-center gap-2 mx-auto hover:bg-[var(--colorPrimary)]/5 transition-all"
+              className="px-4 py-1 rounded-full border font-sans text-[9px] tracking-[0.2em] uppercase font-black flex items-center gap-2 mx-auto transition-all shadow-sm"
+              style={{
+                borderColor: 'color-mix(in srgb, var(--colorPrimary) 35%, transparent)',
+                color: 'var(--colorPrimary)',
+                background: 'color-mix(in srgb, var(--colorTextLight) 22%, white)'
+              }}
             >
               <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
               Save the Date
@@ -264,10 +284,10 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
           transition={{ duration: 1.5, delay: 1.5 }}
           className="mt-2 w-full max-w-sm aspect-[3/4] p-3 relative"
         >
-          <div className="absolute inset-0 border border-[var(--colorPrimary)]/10 rounded-[3rem] scale-[1.02] -z-10" />
-          <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.1)] border-[6px] border-white relative group">
+          <div className="absolute inset-0 rounded-[3rem] scale-[1.02] -z-10" style={{ background: 'linear-gradient(145deg, var(--colorPrimary), var(--colorSecondary), var(--colorAccent), var(--colorTextDark))' }} />
+          <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_30px_70px_rgba(221,31,85,0.2)] border-[6px] relative group" style={{ borderColor: 'color-mix(in srgb, var(--colorTextLight) 70%, white)' }}>
             <Image src={heroImage || '/images/placeholder.png'} alt="Hero" fill style={{ objectFit: 'cover' }} className="transition-transform duration-[3000ms] group-hover:scale-110" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--colorPrimary)]/20 to-transparent mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="absolute inset-0 mix-blend-overlay opacity-50 transition-opacity duration-1000 group-hover:opacity-70" style={{ background: 'linear-gradient(to top, var(--colorPrimary), transparent 48%, var(--colorAccent))' }} />
           </div>
         </motion.div>
       )}
