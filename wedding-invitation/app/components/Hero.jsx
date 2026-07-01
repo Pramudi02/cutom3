@@ -54,6 +54,7 @@ export default function Hero({ config, isOpened, labels = {}, birthdayData = nul
         </div>
       )}
 
+
       {/* ── BLURRED BACKGROUND LAYER (Fallback or secondary) ── */}
       {config.sectionBackgrounds?.hero && !config.heroVideo && (
         <div
@@ -62,7 +63,6 @@ export default function Hero({ config, isOpened, labels = {}, birthdayData = nul
             backgroundImage: `url(${config.sectionBackgrounds.hero})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'blur(1px)',
             transform: 'scale(1.05)',
             opacity: 0.6
           }}
@@ -117,6 +117,7 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
   const { couple = {}, wedding = {}, events = {}, heroImage } = config;
   const [showOptions, setShowOptions] = useState(false);
   const names = resolveNames(config, birthdayData, generalData);
+  const isReception = config?.slug === 'rajitha-sayuri-reception';
 
   const handleSaveToCalendar = () => {
     setShowOptions(!showOptions);
@@ -160,10 +161,11 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
 
   return (
     <div
-      className="flex flex-col items-center w-full min-h-[70vh] justify-start pt-12 md:pt-20 pb-8 px-0 relative overflow-hidden border border-white/40 shadow-[0_30px_90px_rgba(221,31,85,0.14)]"
+      className={`flex flex-col items-center w-full min-h-[70vh] justify-end pb-12 md:pb-24 pt-8 px-0 relative overflow-hidden ${isReception ? 'shadow-[inset_0_0_100px_rgba(228,145,30,0.1)]' : 'shadow-[0_30px_90px_rgba(221,31,85,0.14)]'}`}
       style={{
-        background:
-          'linear-gradient(180deg, color-mix(in srgb, var(--colorTextLight) 48%, white) 0%, rgba(255,255,255,0.68) 36%, color-mix(in srgb, var(--colorSecondary) 13%, white) 100%)'
+        background: isReception 
+          ? 'linear-gradient(180deg, transparent 0%, transparent 20%, rgba(255,255,255,0.95) 50%, color-mix(in srgb, var(--colorPrimary) 8%, white) 100%)'
+          : 'linear-gradient(180deg, transparent 0%, transparent 20%, rgba(255,255,255,0.95) 50%, color-mix(in srgb, var(--colorSecondary) 13%, white) 100%)'
       }}
     >
       {/* ── CUSTOM FLORAL CORNERS ── */}
@@ -172,6 +174,35 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
       <SvgFloralCorner path="/images/flowers/bottom-left.svg" className="-bottom-12 -left-12 rotate-[5deg]" delay={0.6} />
       <SvgFloralCorner path="/images/flowers/bottom-right.svg" className="-bottom-12 -right-12 rotate-[-5deg]" delay={0.9} />
 
+      {/* ── PHOTO AREA ── */}
+      {heroImage && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 1.5 }}
+          className="mt-2 mb-8 w-full max-w-sm aspect-[3/4] p-1.5 relative"
+        >
+          <div className="absolute inset-0 rounded-t-[10rem] rounded-b-[2rem] border-[3px] border-dashed border-[var(--colorPrimary)] opacity-50 -z-10 scale-[1.05]" />
+          <div className="w-full h-full overflow-hidden shadow-2xl relative group rounded-t-[10rem] rounded-b-[1.5rem] bg-white p-2">
+            
+            {/* Katayam (Ornate) Multi-layered Border Effect */}
+            {/* Outer solid frame */}
+            <div className="absolute inset-0 rounded-t-[10rem] rounded-b-[1.5rem] border-[3px] border-[var(--colorPrimary)] pointer-events-none z-10" />
+            {/* Inner dashed intricate line */}
+            <div className="absolute inset-[4px] rounded-t-[9.8rem] rounded-b-[1.2rem] border-[2px] border-dashed border-[var(--colorPrimary)] opacity-80 pointer-events-none z-10" />
+            {/* Inner solid thin line */}
+            <div className="absolute inset-[8px] rounded-t-[9.5rem] rounded-b-[1rem] border-[1px] border-[var(--colorPrimary)] pointer-events-none z-10" />
+            {/* Innermost dotted filigree line */}
+            <div className="absolute inset-[11px] rounded-t-[9.2rem] rounded-b-[0.8rem] border-[2px] border-dotted border-[var(--colorPrimary)] opacity-70 pointer-events-none z-10" />
+
+            <div className="w-full h-full overflow-hidden relative rounded-t-[9.5rem] rounded-b-[1.2rem]">
+              <Image src={heroImage || '/images/placeholder.png'} alt="Hero" fill style={{ objectFit: 'cover' }} className="transition-transform duration-[3000ms] group-hover:scale-110" />
+              <div className="absolute inset-0 mix-blend-overlay opacity-50 transition-opacity duration-1000 group-hover:opacity-70" style={{ background: 'linear-gradient(to top, var(--colorPrimary), transparent 48%, var(--colorAccent))' }} />
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* ── CONTENT AREA ── */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -179,50 +210,59 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
         transition={{ duration: 1, delay: 1.2 }}
         className="text-center z-10 w-full max-w-2xl px-6"
       >
-        {/* Decorative Bow */}
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          className="mb-6"
-        >
-          <img
-            src="/images/bow.webp"
-            alt="Decorative Bow"
-            className="w-16 h-16 md:w-20 md:h-20 mx-auto drop-shadow-md"
-          />
-        </motion.div>
+
 
         <div className="flex flex-col items-center justify-center mb-4">
           <div className="flex items-center gap-3 mb-3 group">
-            <div className="h-px w-5 md:w-10 transition-all group-hover:w-14" style={{ background: 'linear-gradient(to right, var(--colorPrimary), var(--colorSecondary))' }} />
+            <span className="text-[var(--colorAccent)] text-lg">✧</span>
+            <div className="h-0.5 w-8 md:w-12 transition-all group-hover:w-16 bg-[var(--colorAccent)]" />
+            
             {names.showBoth
-              ? <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorTextDark)' }}>The Wedding of</p>
-              : <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorTextDark)' }}>You are invited</p>
+              ? <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorPrimary)' }}>{isReception ? 'The Wedding Reception of' : 'The Wedding Mass of'}</p>
+              : <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorPrimary)' }}>You are invited</p>
             }
-            <div className="h-px w-5 md:w-10 transition-all group-hover:w-14" style={{ background: 'linear-gradient(to right, var(--colorSecondary), var(--colorAccent))' }} />
+            
+            <div className="h-0.5 w-8 md:w-12 transition-all group-hover:w-16 bg-[var(--colorAccent)]" />
+            <span className="text-[var(--colorAccent)] text-lg">✧</span>
           </div>
-          <h1 className="font-script text-[clamp(50px,10vw,80px)] mb-1 leading-[0.7] drop-shadow-sm" style={{ color: 'var(--colorPrimary)' }}>
+          <motion.h1 
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.2, delay: 1.6, ease: "easeOut", type: "spring", bounce: 0.2 }}
+            className="font-script text-[clamp(50px,10vw,80px)] mb-1 leading-[0.7] drop-shadow-sm" 
+            style={{ color: 'var(--colorPrimary)' }}
+          >
             {names.name1}
-          </h1>
+          </motion.h1>
           {names.showBoth && (
             <>
               <div className="flex items-center gap-2 my-1">
                  <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--colorAccent)' }} />
-                 <span className="font-serif text-xl italic font-light lowercase" style={{ color: 'var(--colorSecondary)' }}>and</span>
+                 <span className={`font-serif text-xl italic font-light lowercase ${isReception ? 'text-[var(--colorPrimary)]' : 'text-[var(--colorSecondary)]'}`}>and</span>
                  <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--colorAccent)' }} />
               </div>
-              <h1 className="font-script text-[clamp(50px,10vw,80px)] leading-[0.7] drop-shadow-sm" style={{ color: 'var(--colorPrimary)' }}>
+              <motion.h1 
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1.2, delay: 1.6, ease: "easeOut", type: "spring", bounce: 0.2 }}
+                className="font-script text-[clamp(50px,10vw,80px)] leading-[0.7] drop-shadow-sm" 
+                style={{ color: 'var(--colorPrimary)' }}
+              >
                 {names.name2}
-              </h1>
+              </motion.h1>
             </>
           )}
         </div>
 
         {/* Elegant Garden Plaque with Calendar trigger */}
-        <div className="relative inline-block group">
+        <motion.div 
+          initial={{ y: 40, opacity: 0, scale: 0.95 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
+          className="relative inline-block group"
+        >
           <div className="absolute inset-0 backdrop-blur-sm rounded-[50px_15px_50px_15px] shadow-[0_16px_34px_rgba(228,145,30,0.18)] -z-10 transition-colors duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.78), color-mix(in srgb, var(--colorTextLight) 30%, white))' }} />
-          <div className="px-8 md:px-12 py-4 md:py-6 border rounded-[50px_15px_50px_15px] relative" style={{ borderColor: 'color-mix(in srgb, var(--colorPrimary) 26%, transparent)' }}>
+          <div className="px-8 md:px-12 py-4 md:py-6 rounded-[50px_15px_50px_15px] relative">
             <p className="font-serif text-xl md:text-2xl text-[var(--colorTextDark)] tracking-wider mb-1">{wedding?.displayDate}</p>
             <div className="h-px w-12 mx-auto my-2" style={{ background: 'linear-gradient(to right, var(--colorPrimary), var(--colorSecondary), var(--colorAccent))' }} />
             
@@ -273,24 +313,8 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
             <div className="absolute top-2 left-2 w-1 h-1 rounded-full bg-[var(--colorPrimary)]/20" />
             <div className="absolute bottom-2 right-2 w-1 h-1 rounded-full bg-[var(--colorPrimary)]/20" />
           </div>
-        </div>
-      </motion.div>
-
-      {/* ── PHOTO AREA ── */}
-      {heroImage && (
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, delay: 1.5 }}
-          className="mt-2 w-full max-w-sm aspect-[3/4] p-3 relative"
-        >
-          <div className="absolute inset-0 rounded-[3rem] scale-[1.02] -z-10" style={{ background: 'linear-gradient(145deg, var(--colorPrimary), var(--colorSecondary), var(--colorAccent), var(--colorTextDark))' }} />
-          <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_30px_70px_rgba(221,31,85,0.2)] border-[6px] relative group" style={{ borderColor: 'color-mix(in srgb, var(--colorTextLight) 70%, white)' }}>
-            <Image src={heroImage || '/images/placeholder.png'} alt="Hero" fill style={{ objectFit: 'cover' }} className="transition-transform duration-[3000ms] group-hover:scale-110" />
-            <div className="absolute inset-0 mix-blend-overlay opacity-50 transition-opacity duration-1000 group-hover:opacity-70" style={{ background: 'linear-gradient(to top, var(--colorPrimary), transparent 48%, var(--colorAccent))' }} />
-          </div>
         </motion.div>
-      )}
+      </motion.div>
     </div>
   );
 }

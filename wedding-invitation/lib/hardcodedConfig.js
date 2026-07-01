@@ -7,7 +7,7 @@ export const hardcodedConfig = {
     tagline: 'Together Forever'
   },
   wedding: {
-    dateTimeISO: '2026-08-28T09:30:00.000Z',
+    dateTimeISO: '2026-08-28T04:00:00.000Z',
     displayDate: 'August 28, 2026',
     year: '2026'
   },
@@ -80,6 +80,7 @@ export const hardcodedConfig = {
     hero: '/images/h-bg.png',
     story: '/images/hero-bg.png',
     events: '/images/bgwater.png',
+    rsvp: '/images/2ndInvitation/rsvp-bg.png',
     footer: ''
   },
   sharePreviewImageUrl: '',

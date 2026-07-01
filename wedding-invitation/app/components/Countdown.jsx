@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, useMemo, useSyncExternalStore } from 'react';
 
-function CountdownBlock({ value, unit }) {
+function CountdownBlock({ value, unit, isReception }) {
   const [prev, setPrev]   = useState(value);
   const [flip, setFlip]   = useState(false);
   const ref = useRef(null);
@@ -16,15 +16,18 @@ function CountdownBlock({ value, unit }) {
 
   const formatted = String(value).padStart(2, '0');
 
+  const bgClass = isReception ? 'bg-white/10 border border-white/30 shadow-sm' : 'bg-white/5 border border-[var(--colorSecondary)]/20';
+  const labelClass = isReception ? 'text-white/90 font-medium' : 'text-[var(--colorTextLight)]/40';
+
   return (
-    <div className="flex flex-col items-center backdrop-blur-sm transition-all duration-300 rounded-2xl px-1.5 py-4 sm:px-6 sm:py-6 min-w-[62px] sm:min-w-[110px] bg-white/5 border border-[var(--colorSecondary)]/20">
+    <div className={`flex flex-col items-center backdrop-blur-sm transition-all duration-300 rounded-2xl px-1.5 py-4 sm:px-6 sm:py-6 min-w-[62px] sm:min-w-[110px] ${bgClass}`}>
       <span
         ref={ref}
         className={`font-sans font-black leading-none text-3xl sm:text-5xl tracking-tighter text-[var(--colorSecondary)] ${flip ? 'flip' : ''}`}
       >
         {formatted}
       </span>
-      <span className="font-sans text-[0.5rem] sm:text-[0.6rem] tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-2 text-[var(--colorTextLight)]/40">
+      <span className={`font-sans text-[0.5rem] sm:text-[0.6rem] tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-2 ${labelClass}`}>
         {unit}
       </span>
     </div>
@@ -72,7 +75,7 @@ export default function Countdown({ config, labels = {} }) {
   // If not mounted, render the section structure with empty blocks
   if (!isMounted) {
     return (
-      <section id="countdown" className="bg-[var(--colorTextDark)] text-[var(--colorTextLight)] py-16 md:py-24 text-center overflow-hidden">
+      <section id="countdown" className={`${config?.slug === 'rajitha-sayuri-reception' ? 'bg-[var(--colorPrimary)]' : 'bg-[var(--colorTextDark)]'} text-[var(--colorTextLight)] py-16 md:py-24 text-center overflow-hidden`}>
         <div className="flex justify-center items-center gap-1 sm:gap-5 flex-nowrap px-1 sm:px-4 opacity-0 scale-95 sm:scale-100 transition-transform">
            <div className="min-w-[62px] sm:min-w-[100px] h-20 sm:h-24 bg-white/5 rounded-xl transition-all" />
            <div className="min-w-[62px] sm:min-w-[100px] h-20 sm:h-24 bg-white/5 rounded-xl transition-all" />
@@ -86,7 +89,7 @@ export default function Countdown({ config, labels = {} }) {
   return (
     <section
       id="countdown"
-      className="bg-[var(--colorTextDark)] text-[var(--colorTextLight)] py-16 md:py-24 text-center overflow-hidden"
+      className={`${config?.slug === 'rajitha-sayuri-reception' ? 'bg-[var(--colorPrimary)]' : 'bg-[var(--colorTextDark)]'} text-[var(--colorTextLight)] py-16 md:py-24 text-center overflow-hidden`}
     >
       <div className="font-sans text-[10px] tracking-[0.6em] uppercase font-bold mb-10 text-[var(--colorSecondary)]">
         {labels.countdownLabel || 'Counting down to the big day'}
@@ -98,13 +101,13 @@ export default function Countdown({ config, labels = {} }) {
         </p>
       ) : timeLeft && (
         <div className="flex justify-center items-center gap-1 sm:gap-5 flex-nowrap px-1 sm:px-4 overflow-hidden">
-          <CountdownBlock value={timeLeft.days}    unit="Days" />
+          <CountdownBlock value={timeLeft.days}    unit="Days" isReception={config?.slug === 'rajitha-sayuri-reception'} />
           <span className="font-serif text-xl sm:text-3xl mb-3 sm:mb-5 opacity-20 text-[var(--colorSecondary)]">:</span>
-          <CountdownBlock value={timeLeft.hours}   unit="Hours" />
+          <CountdownBlock value={timeLeft.hours}   unit="Hours" isReception={config?.slug === 'rajitha-sayuri-reception'} />
           <span className="font-serif text-xl sm:text-3xl mb-3 sm:mb-5 opacity-20 text-[var(--colorSecondary)]">:</span>
-          <CountdownBlock value={timeLeft.minutes} unit="Minutes" />
+          <CountdownBlock value={timeLeft.minutes} unit="Minutes" isReception={config?.slug === 'rajitha-sayuri-reception'} />
           <span className="font-serif text-xl sm:text-3xl mb-3 sm:mb-5 opacity-20 text-[var(--colorSecondary)]">:</span>
-          <CountdownBlock value={timeLeft.seconds} unit="Seconds" />
+          <CountdownBlock value={timeLeft.seconds} unit="Seconds" isReception={config?.slug === 'rajitha-sayuri-reception'} />
         </div>
       )}
 

@@ -31,13 +31,33 @@ import { getLabels } from '../lib/eventLabels';
 
 function ImageOnlySections({ images = [] }) {
   return images.map((image, index) => (
-    <section key={image.src || index} className="w-full bg-[var(--colorBg)] overflow-hidden">
+    <section key={image.src || index} className="relative w-full bg-[var(--colorBg)] overflow-hidden">
       <img
         src={image.src}
         alt={image.alt || ''}
         className="block w-full h-auto object-contain"
         loading={index === 0 ? 'eager' : 'lazy'}
       />
+      {(image.textLines || image.colors) && (
+        <div className="absolute inset-0 pt-24 md:pt-32 px-6 flex flex-col items-center justify-start text-center" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.3) 30%, transparent 60%)' }}>
+          {image.textLines && image.textLines.map((line, i) => (
+            <p key={i} className={`mb-3 ${i === 0 ? 'font-serif text-2xl md:text-4xl font-bold text-[var(--colorPrimary)] drop-shadow-md' : 'font-sans text-xs md:text-sm text-gray-900 font-semibold max-w-md drop-shadow-sm leading-relaxed'}`}>
+              {line}
+            </p>
+          ))}
+          {image.colors && (
+            <div className="flex justify-center gap-2 md:gap-3 mt-4">
+              {image.colors.map((color, i) => (
+                <div 
+                  key={i} 
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-md border-2 border-white transform transition-transform hover:scale-110"
+                  style={{ backgroundColor: color }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </section>
   ));
 }
@@ -178,9 +198,6 @@ export default function ClientHome({ config }) {
           <Navbar config={config} birthdayData={birthdayData} generalData={generalData} />
           <Hero config={config} isOpened={hasOpened} labels={labels} birthdayData={birthdayData} generalData={generalData} />
           <Countdown config={config} labels={labels} />
-          {config?.afterCountdownImages?.length > 0 && (
-            <ImageOnlySections images={config.afterCountdownImages} />
-          )}
           <Suspense fallback={<LoadingFallback />}>
             <StorySection config={config} labels={labels} />
           </Suspense>
@@ -192,9 +209,15 @@ export default function ClientHome({ config }) {
           <Suspense fallback={<LoadingFallback />}>
             <Timeline config={config} labels={labels} />
           </Suspense>
+          {(config?.preEventImages?.length > 0 || config?.afterCountdownImages?.length > 0) && (
+            <ImageOnlySections images={config.preEventImages || config.afterCountdownImages} />
+          )}
           <Suspense fallback={<LoadingFallback />}>
             <EventDetails config={config} labels={labels} />
           </Suspense>
+          {config?.postEventImages?.length > 0 && (
+            <ImageOnlySections images={config.postEventImages} />
+          )}
           <Suspense fallback={<LoadingFallback />}>
             <RSVPSection config={config} labels={labels} />
           </Suspense>

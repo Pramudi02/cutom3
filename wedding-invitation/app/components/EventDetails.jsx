@@ -71,8 +71,10 @@ function ActionButtons({ event, config }) {
 // ── LAYOUT 6 — Watercolor Floral Events ──
 function EventCard6({ event, delay, config }) {
   const ref = useReveal(delay);
+  const cardBgClass = 'bg-white/90 shadow-xl';
+  
   return (
-    <div ref={ref} className="opacity-0 translate-y-8 transition-all duration-700 bg-white/40 p-8 rounded-[60px_20px_60px_20px] border border-[var(--colorPrimary)]/10 text-center shadow-lg relative overflow-hidden group">
+    <div ref={ref} className={`opacity-0 translate-y-8 transition-all duration-700 ${cardBgClass} p-8 rounded-[60px_20px_60px_20px] border border-[var(--colorPrimary)]/10 text-center relative overflow-hidden group`}>
       <div className="absolute -top-10 -right-10 w-24 h-24 bg-[var(--colorPrimary)]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
       <span className="text-3xl mb-4 block">💮</span>
       <h3 className="font-script text-4xl text-[var(--colorPrimary)] mb-2">{event.title}</h3>
@@ -88,13 +90,17 @@ function EventCard6({ event, delay, config }) {
 
 function Layout6({ config, labels = {} }) {
   const allEvents = getAllEvents(config);
+  const isReception = config?.slug === 'rajitha-sayuri-reception';
+  
   return (
     <div className="max-w-6xl mx-auto px-6 py-24 text-center relative z-10">
-      <div className="mb-16">
-        <span className="text-2xl mb-4 block opacity-40">❦</span>
-        <h2 className="font-serif text-5xl text-[var(--colorTextDark)] mb-2 drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">The Celebration</h2>
-        <p className="font-script text-3xl text-[var(--colorPrimary)] opacity-90 drop-shadow-sm">{labels.eventDetailsSubtitle || 'Lovely moments together'}</p>
-      </div>
+      {!isReception && (
+        <div className="mb-16">
+          <span className="text-2xl mb-4 block opacity-40">❦</span>
+          <h2 className="font-serif text-5xl text-[var(--colorTextDark)] mb-2 drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">The Celebration</h2>
+          <p className="font-script text-3xl text-[var(--colorPrimary)] opacity-90 drop-shadow-sm">{labels.eventDetailsSubtitle || 'Lovely moments together'}</p>
+        </div>
+      )}
       <div className="flex flex-wrap justify-center gap-8 px-4">
         {allEvents.map((event, idx) => (
           <div key={idx} className="w-full max-w-sm">
@@ -107,6 +113,7 @@ function Layout6({ config, labels = {} }) {
 }
 
 export default function EventDetails({ config, labels = {} }) {
+  
   return (
     <section
       id="events"
@@ -121,9 +128,9 @@ export default function EventDetails({ config, labels = {} }) {
             backgroundImage: `url(${config.sectionBackgrounds.events})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'blur(1px)',
+            filter: 'none',
             transform: 'scale(1.02)',
-            opacity: 0.85
+            opacity: 1
           }}
         />
       )}

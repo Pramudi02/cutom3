@@ -234,7 +234,6 @@ export default function RSVPSection({ config, labels = {} }) {
             backgroundImage: `url(${config.sectionBackgrounds.rsvp})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'blur(1px)',
             transform: 'scale(1.02)',
             opacity: 0.85
           }}

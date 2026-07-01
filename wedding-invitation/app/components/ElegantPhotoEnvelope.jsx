@@ -49,7 +49,7 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-8 md:pb-12 px-8 md:px-12 relative z-10"
+          className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-8 md:pb-12 px-8 md:px-12 z-10"
         >
           {/* Couple Names */}
           <motion.div
@@ -94,7 +94,7 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98, y: 2 }}
-                className="px-8 py-3 md:py-4 bg-gradient-to-b from-pink-400 to-pink-600 text-white font-semibold text-sm md:text-base rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.3),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.4),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer relative"
+                className="px-8 py-3 md:py-4 bg-[#839950] text-white font-semibold text-sm md:text-base rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.3),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.4),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer relative"
               >
                 <span className="relative z-10">Church Mass</span>
                 {/* Inner highlight */}
@@ -112,7 +112,7 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98, y: 2 }}
-                className="px-8 py-3 md:py-4 bg-gradient-to-b from-pink-400 to-pink-600 text-white font-semibold text-sm md:text-base rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.3),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.4),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer relative"
+                className="px-8 py-3 md:py-4 bg-[#839950] text-white font-semibold text-sm md:text-base rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.3),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.4),inset_0_-2px_4px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer relative"
               >
                 <span className="relative z-10">Reception</span>
                 {/* Inner highlight */}
