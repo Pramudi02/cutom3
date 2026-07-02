@@ -535,7 +535,7 @@ export default function LayoutTen({ config, labels = {}, birthdayData = null, ge
           <div className="w-12 h-[1px] mx-auto mb-10" style={{ backgroundColor: theme.colorPrimary, opacity: 0.3 }} />
 
           <p className="font-sans text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-bold" style={{ color: theme.colorBg, opacity: 0.4 }}>
-            Handcrafted with Love — &copy; {config?.wedding?.year || new Date().getFullYear()} KodeX
+            Handcrafted with Love — &copy; {config?.wedding?.year || new Date().getFullYear()} KodeXlk
           </p>
         </div>
       </section>

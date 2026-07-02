@@ -63,7 +63,10 @@ export const receptionConfig = {
     maxGuests: 2,
     dietaryTitle: null,
     dietaryItems: null,
-    fields: undefined
+    fields: undefined,
+    // Send RSVP replies to a Google Sheet (via Apps Script webhook) instead of WhatsApp
+    submissionDestination: 'google-sheet',
+    googleSheetUrl: 'https://script.google.com/macros/s/AKfycbySaYHAhNpsffWqgFR-aamjlsFhqB8-kPYqQDPbPT-_aqYa16nhO30CbK6byjCoNnqZJg/exec'
   },
   envelope: {
     title: 'Reception Invitation',
