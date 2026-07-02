@@ -38,6 +38,7 @@ export async function generateMetadata() {
     const ogImage = config.sharePreviewImageUrl || '';
 
     return {
+      metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
       title,
       description,
       openGraph: {
