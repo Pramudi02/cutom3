@@ -195,7 +195,7 @@ export default function ClientHome({ config }) {
         </Suspense>
       ) : (
         <>
-          <Navbar config={config} birthdayData={birthdayData} generalData={generalData} />
+          <Navbar config={config} birthdayData={birthdayData} generalData={generalData} closeHref={config.skipReveal ? (config.openingPageUrl || '/rajitha-sayuri') : null} />
           <Hero config={config} isOpened={hasOpened} labels={labels} birthdayData={birthdayData} generalData={generalData} />
           <Countdown config={config} labels={labels} />
           <Suspense fallback={<LoadingFallback />}>
@@ -265,15 +265,7 @@ export default function ClientHome({ config }) {
           className={!hasOpened ? "opacity-0 pointer-events-none fixed inset-0 z-[-1]" : ""}
         >
         {mainContent}
-        {config.skipReveal && (
-          <a
-            href={config.openingPageUrl || '/rajitha-sayuri'}
-            className="fixed top-4 right-4 z-[10000] rounded-full border border-white/50 bg-white/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--colorTextDark)] shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-[var(--colorPrimary)] active:scale-95"
-            aria-label="Close invitation and return to opening page"
-          >
-            Close
-          </a>
-        )}
+
         {/* Floating audio toggle */}
         {config.audioUrl && (
           <button

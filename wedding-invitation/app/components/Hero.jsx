@@ -179,7 +179,7 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, delay: 1.5 }}
+          transition={{ duration: 0.8, delay: 0 }}
           className="mt-2 mb-8 w-full max-w-sm aspect-[3/4] p-1.5 relative"
         >
           <div className="absolute inset-0 rounded-t-[10rem] rounded-b-[2rem] border-[3px] border-dashed border-[var(--colorPrimary)] opacity-50 -z-10 scale-[1.05]" />
@@ -196,7 +196,7 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
             <div className="absolute inset-[11px] rounded-t-[9.2rem] rounded-b-[0.8rem] border-[2px] border-dotted border-[var(--colorPrimary)] opacity-70 pointer-events-none z-10" />
 
             <div className="w-full h-full overflow-hidden relative rounded-t-[9.5rem] rounded-b-[1.2rem]">
-              <Image src={heroImage || '/images/placeholder.png'} alt="Hero" fill style={{ objectFit: 'cover' }} className="transition-transform duration-[3000ms] group-hover:scale-110" />
+              <Image src={heroImage || '/images/placeholder.png'} alt="Hero" fill priority sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} className="transition-transform duration-[3000ms] group-hover:scale-110" />
               <div className="absolute inset-0 mix-blend-overlay opacity-50 transition-opacity duration-1000 group-hover:opacity-70" style={{ background: 'linear-gradient(to top, var(--colorPrimary), transparent 48%, var(--colorAccent))' }} />
             </div>
           </div>

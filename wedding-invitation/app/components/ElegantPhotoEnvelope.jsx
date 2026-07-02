@@ -1,10 +1,11 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenReception }) {
   const [hoveredButton, setHoveredButton] = useState(null);
+  const [playVideo, setPlayVideo] = useState(false);
   const router = useRouter();
 
   const couple = config.couple || {};
@@ -20,6 +21,10 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
   };
 
   const handleReceptionClick = () => {
+    setPlayVideo(true);
+  };
+
+  const handleVideoEnded = () => {
     router.push('/rajitha-sayuri/reception');
   };
 
@@ -49,7 +54,7 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-8 md:pb-12 px-8 md:px-12 z-10"
+          className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-24 md:pb-12 px-8 md:px-12 z-10"
         >
           {/* Couple Names */}
           <motion.div
@@ -122,6 +127,32 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
           </motion.div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {playVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[10000] flex flex-col items-center justify-center"
+          >
+            <video
+              src="/reception-video.mp4"
+              autoPlay
+              playsInline
+              onEnded={handleVideoEnded}
+              onError={handleVideoEnded}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <button 
+              onClick={handleVideoEnded}
+              className="absolute top-8 right-8 z-[10001] bg-white/20 hover:bg-white/40 text-white rounded-full px-6 py-2 backdrop-blur-sm transition-all border border-white/30 text-sm font-medium tracking-wider uppercase"
+            >
+              Skip
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
