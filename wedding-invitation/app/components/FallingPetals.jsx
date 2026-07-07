@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 
-const FallingPetals = ({ color = '#C9956A' }) => {
+const FallingPetals = ({ color = '#C9956A', imageSrc = null }) => {
   const [petals] = useState(() =>
     [...Array(20)].map((_, i) => ({
       id: i,
       left: Math.random() * 100,
-      size: 6 + Math.random() * 8,
+      size: imageSrc ? 28 + Math.random() * 24 : 6 + Math.random() * 8,
       fallDuration: 10 + Math.random() * 15,
       delay: -(Math.random() * 20),
       opacity: 0.4 + Math.random() * 0.4,
@@ -37,7 +37,11 @@ const FallingPetals = ({ color = '#C9956A' }) => {
             '--p-opacity': p.opacity,
           }}
         >
-          <div className="css-petal-shape" />
+          {imageSrc ? (
+            <img src={imageSrc} alt="" className="css-petal-img" loading="lazy" />
+          ) : (
+            <div className="css-petal-shape" />
+          )}
         </div>
       ))}
     </div>

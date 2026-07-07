@@ -124,6 +124,13 @@ html {
   transform: rotate(45deg);
 }
 
+.css-petal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
 /* ── Hide native iOS video play button (Low Power Mode) ── */
 video::-webkit-media-controls-start-playback-button {
   display: none !important;

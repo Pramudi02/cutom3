@@ -312,7 +312,7 @@ export default function RSVPSection({ config, labels = {} }) {
           ) : (
             <>
               <p className="font-sans text-[0.7rem] tracking-[0.3em] uppercase text-[var(--colorPrimary)] mb-3">We Hope to See You</p>
-              <h2 className="font-serif text-4xl md:text-5xl font-normal text-[var(--colorTextDark)] mb-3">
+              <h2 className="font-serif text-2xl md:text-3xl font-normal text-[var(--colorTextDark)] mb-3">
                 {rsvp?.title || 'Please Confirm'}
               </h2>
               {rsvp?.titleSub && (

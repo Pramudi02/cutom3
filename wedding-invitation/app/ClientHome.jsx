@@ -295,7 +295,7 @@ export default function ClientHome({ config }) {
       {/* Falling petals - separated from motion.div to prevent animation conflicts */}
       {config.fallingPetals && hasOpened && (
         <Suspense fallback={null}>
-          <FallingPetals color={theme.colorPrimary} />
+          <FallingPetals color={theme.colorPrimary} imageSrc={config.fallingPetalsImage} />
         </Suspense>
       )}
     </>

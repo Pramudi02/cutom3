@@ -111,10 +111,39 @@ function SvgFloralCorner({ path, className, delay = 0 }) {
 }
 
 /* ─────────────────────────────────────────────────────────
+   LAYOUT 6 — Helper: Framed portrait with parents + name
+───────────────────────────────────────────────────────── */
+function HeroPersonCard({ person, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, delay, ease: 'easeOut' }}
+      className="flex flex-col items-center"
+    >
+      <p className="font-serif italic text-sm md:text-base text-[var(--colorTextDark)] mb-1">{person.parents}</p>
+      <h1 className="font-script text-[clamp(38px,8vw,60px)] leading-tight drop-shadow-sm mb-4" style={{ color: 'var(--colorPrimary)' }}>
+        {person.name}
+      </h1>
+      <div className="w-56 md:w-64 aspect-[3/4] p-1.5 relative">
+        <div className="absolute inset-0 rounded-t-[7rem] rounded-b-[1.5rem] border-[3px] border-dashed border-[var(--colorPrimary)] opacity-50 -z-10 scale-[1.05]" />
+        <div className="w-full h-full overflow-hidden shadow-2xl relative rounded-t-[7rem] rounded-b-[1.2rem] bg-white p-2">
+          <div className="absolute inset-0 rounded-t-[7rem] rounded-b-[1.2rem] border-[3px] border-[var(--colorPrimary)] pointer-events-none z-10" />
+          <div className="absolute inset-[5px] rounded-t-[6.8rem] rounded-b-[1rem] border-[2px] border-dashed border-[var(--colorPrimary)] opacity-80 pointer-events-none z-10" />
+          <div className="w-full h-full overflow-hidden relative rounded-t-[6.6rem] rounded-b-[0.8rem]">
+            <Image src={person.image} alt={person.name} fill priority sizes="(max-width: 768px) 60vw, 30vw" style={{ objectFit: 'cover' }} />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
    LAYOUT 6 — Watercolor Floral (Garden Theme)
 ───────────────────────────────────────────────────────── */
 function Layout6({ config, labels = {}, birthdayData = null, generalData = null }) {
-  const { couple = {}, wedding = {}, events = {}, heroImage } = config;
+  const { couple = {}, wedding = {}, events = {}, heroImage, heroCouple } = config;
   const [showOptions, setShowOptions] = useState(false);
   const names = resolveNames(config, birthdayData, generalData);
   const isReception = config?.slug === 'rajitha-sayuri-reception';
@@ -174,8 +203,39 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
       <SvgFloralCorner path="/images/flowers/bottom-left.svg" className="-bottom-12 -left-12 rotate-[5deg]" delay={0.6} />
       <SvgFloralCorner path="/images/flowers/bottom-right.svg" className="-bottom-12 -right-12 rotate-[-5deg]" delay={0.9} />
 
+      {/* ── COUPLE AREA (parents + names + individual portraits) ── */}
+      {heroCouple && (
+        <div className="w-full max-w-4xl px-6 text-center z-10 mt-4 mb-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="flex items-center justify-center gap-3 mb-8"
+          >
+            <span className="text-[var(--colorAccent)] text-lg">✧</span>
+            <div className="h-0.5 w-8 md:w-12 bg-[var(--colorAccent)]" />
+            <p className="font-sans text-[8px] md:text-[9px] tracking-[0.4em] uppercase font-bold" style={{ color: 'var(--colorPrimary)' }}>The Wedding Mass of</p>
+            <div className="h-0.5 w-8 md:w-12 bg-[var(--colorAccent)]" />
+            <span className="text-[var(--colorAccent)] text-lg">✧</span>
+          </motion.div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+            <HeroPersonCard person={heroCouple.groom} delay={0.3} />
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="font-script text-6xl md:text-7xl drop-shadow-sm"
+              style={{ color: 'var(--colorPrimary)' }}
+            >
+              &
+            </motion.span>
+            <HeroPersonCard person={heroCouple.bride} delay={0.6} />
+          </div>
+        </div>
+      )}
+
       {/* ── PHOTO AREA ── */}
-      {heroImage && (
+      {!heroCouple && heroImage && (
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -212,6 +272,7 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
       >
 
 
+        {!heroCouple && (
         <div className="flex flex-col items-center justify-center mb-4">
           <div className="flex items-center gap-3 mb-3 group">
             <span className="text-[var(--colorAccent)] text-lg">✧</span>
@@ -253,6 +314,7 @@ function Layout6({ config, labels = {}, birthdayData = null, generalData = null 
             </>
           )}
         </div>
+        )}
 
         {/* Elegant Garden Plaque with Calendar trigger */}
         <motion.div 

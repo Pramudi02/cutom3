@@ -31,7 +31,11 @@ export const hardcodedConfig = {
   },
   extraEvents: [],
   audioUrl: '',
-  heroImage: '/images/hero-COUPLE.png',
+  heroImage: '',
+  heroCouple: {
+    groom: { parents: 'Son of Mr and Mrs Gamameda Liyanage', name: 'Rajitha Nethmal', image: '/images/groom.jpeg' },
+    bride: { parents: 'Daughter of Mr and Mrs Ranasinghe', name: 'Sayuri Maheesha', image: '/images/bride.jpeg' }
+  },
   heroVideo: '',
   heroLayout: 6,
   revealStyle: 'elegant-photo',
@@ -98,5 +102,6 @@ export const hardcodedConfig = {
   },
   sharePreviewImageUrl: '',
   isActive: true,
-  fallingPetals: true
+  fallingPetals: true,
+  fallingPetalsImage: '/images/bow.webp'
 };
