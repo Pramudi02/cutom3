@@ -23,6 +23,7 @@ export const hardcodedConfig = {
       title: 'Wedding Ceremony',
       icon: '🌸',
       time: '09:30 AM',
+      timeHighlight: true,
       venueName: 'St. Philip Neri\'s Church Thammita',
       address: 'Negombo, Sri Lanka',
       mapsUrl: 'https://maps.google.com/?q=St.Philip+Neri+Church+Thammita+Negombo',
