@@ -39,22 +39,27 @@ function ImageOnlySections({ images = [] }) {
         loading={index === 0 ? 'eager' : 'lazy'}
       />
       {(image.textLines || image.colors) && (
-        <div className="absolute inset-0 pt-24 md:pt-32 px-6 flex flex-col items-center justify-start text-center" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.3) 30%, transparent 60%)' }}>
+        <div className="absolute inset-0 pt-6 md:pt-8 px-6 flex flex-col items-center justify-start text-center gap-3 md:gap-4" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.3) 30%, transparent 60%)' }}>
           {image.textLines && image.textLines.map((line, i) => (
-            <p key={i} className={`mb-3 ${i === 0 ? 'font-serif text-2xl md:text-4xl font-bold text-[var(--colorPrimary)] drop-shadow-md' : 'font-sans text-xs md:text-sm text-gray-900 font-semibold max-w-md drop-shadow-sm leading-relaxed'}`}>
+            <p key={i} className={i === 0 ? 'font-serif text-2xl md:text-4xl font-bold text-[var(--colorPrimary)] drop-shadow-md' : 'font-sans text-xs md:text-sm text-gray-900 font-semibold max-w-md drop-shadow-sm leading-relaxed'}>
               {line}
             </p>
           ))}
           {image.colors && (
-            <div className="flex justify-center gap-2 md:gap-3 mt-4">
+            <div className="flex justify-center gap-2 md:gap-3">
               {image.colors.map((color, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-md border-2 border-white transform transition-transform hover:scale-110"
                   style={{ backgroundColor: color }}
                 />
               ))}
             </div>
+          )}
+          {image.colorsNote && (
+            <p className="font-sans text-xs md:text-sm text-gray-900 font-semibold max-w-md drop-shadow-sm leading-relaxed">
+              {image.colorsNote}
+            </p>
           )}
         </div>
       )}

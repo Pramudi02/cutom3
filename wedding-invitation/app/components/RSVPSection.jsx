@@ -172,7 +172,7 @@ export default function RSVPSection({ config, labels = {} }) {
         active: `bg-[var(--colorPrimary)] border-2 border-[var(--colorTextDark)] text-[var(--colorTextDark)] rounded-none font-sans text-xs uppercase tracking-[0.2em] shadow-[8px_8px_0_var(--colorTextDark)] -translate-y-1 -translate-x-1`,
       },
       6: { // Soft Organic
-        nonActive: `bg-white/60 border border-[var(--colorPrimary)]/20 text-[var(--colorTextDark)]/50 rounded-[30px] font-serif text-lg italic hover:border-[var(--colorPrimary)]/40 hover:bg-white`,
+        nonActive: `bg-white/70 border border-[var(--colorPrimary)]/30 text-gray-800 rounded-[30px] font-serif text-lg italic hover:border-[var(--colorPrimary)]/50 hover:bg-white`,
         active: `bg-[var(--colorPrimary)] border border-[var(--colorPrimary)] text-white rounded-[30px] font-serif text-lg italic shadow-lg`,
       },
       7: { // Script/Chic
@@ -192,7 +192,7 @@ export default function RSVPSection({ config, labels = {} }) {
   // Layout Styles
   let bgClass = "bg-[var(--colorBg)]";
   let inputCls = `w-full px-4 py-3 rounded-none font-serif text-base bg-white/40 text-[var(--colorTextDark)] placeholder:text-[var(--colorTextDark)]/35 placeholder:italic border border-[var(--colorPrimary)]/30 outline-none focus:border-[var(--colorPrimary)] focus:ring-1 focus:ring-[var(--colorPrimary)] transition-all duration-200`;
-  let labelCls = "block font-sans text-xs font-semibold tracking-widest uppercase text-[var(--colorTextDark)] opacity-80 mb-1.5";
+  let labelCls = "block font-sans text-xs font-bold tracking-widest uppercase text-gray-900 mb-1.5";
   let btnCls = "w-full flex items-center justify-center gap-2 py-4 bg-[var(--colorPrimary)] text-white font-sans text-xs font-bold tracking-widest uppercase shadow-[0_4px_18px_var(--colorPrimary)/40] hover:bg-transparent hover:text-[var(--colorPrimary)] border border-[var(--colorPrimary)] transition-all duration-300";
 
   if (layout === 2) {
@@ -208,7 +208,7 @@ export default function RSVPSection({ config, labels = {} }) {
     inputCls = `w-full px-4 py-3 rounded-none border-2 border-[var(--colorTextDark)] bg-white focus:bg-[var(--colorPrimary)]/5 outline-none transition-all font-sans text-sm uppercase tracking-widest`;
     btnCls = "w-full py-4 bg-[var(--colorTextDark)] text-white font-sans text-xs font-black uppercase tracking-[0.5em] hover:bg-white hover:text-[var(--colorTextDark)] border-2 border-[var(--colorTextDark)] transition-all shadow-[8px_8px_0_var(--colorPrimary)]";
   } else if (layout === 6) {
-    inputCls = `w-full px-5 py-3 rounded-[30px] border border-[var(--colorPrimary)]/20 bg-white/50 focus:bg-white outline-none transition-all font-serif italic text-lg`;
+    inputCls = `w-full px-5 py-3 rounded-[30px] border border-[var(--colorPrimary)]/30 bg-white/70 focus:bg-white outline-none transition-all font-serif italic text-lg text-gray-900 placeholder:text-gray-500`;
     btnCls = "w-full py-4 rounded-[30px] bg-[var(--colorPrimary)] text-white font-sans text-xs font-bold tracking-widest uppercase hover:opacity-80 transition-opacity shadow-lg";
   } else if (layout === 7) {
     inputCls = `w-full px-4 py-3 bg-white border-b-2 border-slate-200 focus:border-[var(--colorPrimary)] outline-none transition-all font-script text-xl`;
@@ -313,11 +313,14 @@ export default function RSVPSection({ config, labels = {} }) {
             <>
               <p className="font-sans text-[0.7rem] tracking-[0.3em] uppercase text-[var(--colorPrimary)] mb-3">We Hope to See You</p>
               <h2 className="font-serif text-4xl md:text-5xl font-normal text-[var(--colorTextDark)] mb-3">
-                Please Confirm
+                {rsvp?.title || 'Please Confirm'}
               </h2>
+              {rsvp?.titleSub && (
+                <p className="font-serif text-lg text-[var(--colorTextDark)]/80 mb-2">{rsvp.titleSub}</p>
+              )}
               <span className="text-[var(--colorPrimary)]/60 text-2xl">❧</span>
-              <p className="font-sans text-sm text-[var(--colorTextDark)]/55 mt-3">
-                Kindly respond by <strong className="text-[var(--colorPrimary)]">{rsvp?.deadline || ''}</strong>
+              <p className="font-sans text-sm font-medium text-gray-800 mt-3">
+                {rsvp?.deadlineLabel || 'Kindly respond by'} <strong className="text-[var(--colorPrimary)]">{rsvp?.deadline || ''}</strong>
               </p>
             </>
           )}
@@ -368,7 +371,7 @@ export default function RSVPSection({ config, labels = {} }) {
                           {isChecked && <CheckIcon size={12} />}
                         </div>
                         <input type="checkbox" className="hidden" value={opt.trim()} onChange={e => handleCheckboxChange(field.id, opt.trim(), e.target.checked)} />
-                        <span className="font-sans text-sm text-[var(--colorTextDark)]/80 group-hover:text-[var(--colorTextDark)]">{opt.trim()}</span>
+                        <span className="font-sans text-sm font-medium text-gray-900">{opt.trim()}</span>
                       </label>
                     );
                   })}
@@ -383,7 +386,7 @@ export default function RSVPSection({ config, labels = {} }) {
               ) : field.type === 'select' ? (
                 <div className="relative">
                   <select name={field.id} required={field.required} className={`${inputCls} appearance-none cursor-pointer`} value={formData[field.id] || ''} onChange={e => setFormData({ ...formData, [field.id]: e.target.value })}>
-                    <option value="">-- Please Select --</option>
+                    <option value="">{field.placeholder || '-- Please Select --'}</option>
                     {field.options?.split(',').map((opt, i) => (
                       <option key={i} value={opt.trim()}>{opt.trim()}</option>
                     ))}
@@ -406,7 +409,7 @@ export default function RSVPSection({ config, labels = {} }) {
             ) : status === 'success' ? (
               <>Sent ✨</>
             ) : (
-              <>{(config?.rsvp?.submissionDestination === 'google-sheet') ? 'Submit' : 'Confirm via WhatsApp'}</>
+              <>{rsvp?.submitLabel || ((config?.rsvp?.submissionDestination === 'google-sheet') ? 'Submit' : 'Confirm via WhatsApp')}</>
             )}
           </button>
 

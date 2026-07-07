@@ -78,10 +78,19 @@ function EventCard6({ event, delay, config }) {
       <div className="absolute -top-10 -right-10 w-24 h-24 bg-[var(--colorPrimary)]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
       <span className="text-3xl mb-4 block">💮</span>
       <h3 className="font-script text-4xl text-[var(--colorPrimary)] mb-2">{event.title}</h3>
-      <p className="font-sans text-[10px] tracking-widest uppercase font-bold text-[var(--colorTextDark)]/60 mb-6">{event.time}</p>
+      {event.timeHighlight ? (
+        <p className="inline-block font-sans text-lg sm:text-xl tracking-wider uppercase font-extrabold text-[var(--colorPrimary)] bg-[var(--colorPrimary)]/10 px-6 py-2 rounded-full mb-6">{event.time}</p>
+      ) : (
+        <p className="font-sans text-[10px] tracking-widest uppercase font-bold text-[var(--colorTextDark)]/60 mb-6">{event.time}</p>
+      )}
       <div className="space-y-2 mb-8">
         <p className="font-serif text-lg text-[var(--colorTextDark)]">{event.venueName}</p>
-        <p className="font-sans text-[10px] uppercase text-[var(--colorTextDark)]/40 tracking-widest">{event.address}</p>
+        {event.address && (
+          <p className="font-sans text-[10px] uppercase text-[var(--colorTextDark)]/40 tracking-widest">{event.address}</p>
+        )}
+        {event.note && (
+          <p className="font-sans text-sm leading-relaxed font-semibold text-[var(--colorTextDark)] bg-[var(--colorAccent)]/10 border border-[var(--colorAccent)]/30 rounded-2xl px-4 py-3 !mt-4">{event.note}</p>
+        )}
       </div>
       <ActionButtons event={event} config={config} />
     </div>

@@ -51,7 +51,17 @@ export const hardcodedConfig = {
     maxGuests: 2,
     dietaryTitle: null,
     dietaryItems: null,
-    fields: undefined,
+    title: 'ඔබගේ පැමිණීම තහවුරු කරන්න',
+    titleSub: '(Please Confirm Your Attendance / RSVP)',
+    submitLabel: 'යොමු කරන්න (Submit)',
+    deadlineLabel: 'කරුණාකර මෙම දිනයට පෙර ඔබගේ පැමිණීම තහවුරු කරන්න ',
+    fields: [
+      { id: 'guestName', type: 'text', label: 'අමුත්තාගේ නම (Guest Name)', placeholder: 'ඔබගේ නම ඇතුළත් කරන්න', required: true },
+      { id: 'attending', type: 'button-group', label: 'ඔබ සහභාගී වන්නේද? (Will You Attend?)', options: 'සතුටින් සහභාගී වෙමි,සහභාගී විය නොහැක', required: true },
+      { id: 'guestCount', type: 'select', label: 'අමුත්තන් සංඛ්‍යාව (Guest Count)', placeholder: '-- අමුත්තන් සංඛ්‍යාව තෝරන්න --', options: '1 අයෙකු (1 Guest),2 අයෙකු (2 Guests),3 අයෙකු (3 Guests),4 අයෙකු (4 Guests),5 හෝ ඊට වැඩි (5+ Guests)', required: true },
+      { id: 'menu', type: 'checkbox-group', label: 'ආහාර තේරීම (Menu Preference)', options: 'චිකන් (Chicken),මාළු (Fish),නිර්මාංශ (Vegetarian)', required: false },
+      { id: 'message', type: 'textarea', label: 'යුවළට සුබ පැතුම් පණිවිඩයක්', placeholder: 'ඔබගේ පණිවිඩය මෙහි සටහන් කරන්න...', required: false }
+    ],
     // Send RSVP replies to a Google Sheet (via Apps Script webhook) instead of WhatsApp
     submissionDestination: 'google-sheet',
     googleSheetUrl: 'https://script.google.com/macros/s/AKfycbyX2Bvyd1vLC97KUtUYZCY7Evz7aRViLYZJWDefMmFVaEruwKLTrsjCqE6ETEr51cZc/exec'
