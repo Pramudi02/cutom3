@@ -137,7 +137,7 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
             className="fixed inset-0 z-[10000] flex flex-col items-center justify-center"
           >
             <video
-              src="/reception-video.mp4"
+              src="/reception-video-new.mp4"
               autoPlay
               playsInline
               onEnded={handleVideoEnded}

@@ -52,7 +52,7 @@ export const hardcodedConfig = {
   },
   rsvp: {
     whatsappNumber: '766155777',
-    deadline: 'July 20, 2026',
+    deadline: 'August 08, 2026',
     maxGuests: 2,
     dietaryTitle: null,
     dietaryItems: null,
@@ -64,7 +64,6 @@ export const hardcodedConfig = {
       { id: 'guestName', type: 'text', label: 'අමුත්තාගේ නම (Guest Name)', placeholder: 'ඔබගේ නම ඇතුළත් කරන්න', required: true },
       { id: 'attending', type: 'button-group', label: 'ඔබ සහභාගී වන්නේද? (Will You Attend?)', options: 'සතුටින් සහභාගී වෙමි,සහභාගී විය නොහැක', required: true },
       { id: 'guestCount', type: 'select', label: 'අමුත්තන් සංඛ්‍යාව (Guest Count)', placeholder: '-- අමුත්තන් සංඛ්‍යාව තෝරන්න --', options: '1 අයෙකු (1 Guest),2 අයෙකු (2 Guests),3 අයෙකු (3 Guests),4 අයෙකු (4 Guests),5 හෝ ඊට වැඩි (5+ Guests)', required: true },
-      { id: 'menu', type: 'checkbox-group', label: 'ආහාර තේරීම (Menu Preference)', options: 'චිකන් (Chicken),මාළු (Fish),නිර්මාංශ (Vegetarian)', required: false },
       { id: 'message', type: 'textarea', label: 'යුවළට සුබ පැතුම් පණිවිඩයක්', placeholder: 'ඔබගේ පණිවිඩය මෙහි සටහන් කරන්න...', required: false }
     ],
     // Send RSVP replies to a Google Sheet (via Apps Script webhook) instead of WhatsApp
