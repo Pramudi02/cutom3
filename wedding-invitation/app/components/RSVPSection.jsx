@@ -2,6 +2,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { getDietaryTitle, getDietaryItems, getInitialDietary, buildDietaryString } from '../../lib/dietary';
 
+// Sinhala attending options -> English translation shown beneath (Sinhala <br> English)
+const OPTION_TRANSLATIONS = {
+  'සතුටින් සහභාගී වෙමි': 'Joyfully Accept',
+  'සහභාගී විය නොහැක': 'Regretfully Decline',
+};
+
 export default function RSVPSection({ config, labels = {} }) {
   const rsvp = config?.rsvp || {};
   const dietaryItems = getDietaryItems(config);
@@ -352,11 +358,16 @@ export default function RSVPSection({ config, labels = {} }) {
               ) : field.type === 'button-group' ? (
                 <div className="flex flex-col sm:flex-row gap-3">
                   {field.options?.split(',').map((opt, i) => {
-                    const active = formData[field.id] === opt.trim();
+                    const value = opt.trim();
+                    const active = formData[field.id] === value;
+                    const english = OPTION_TRANSLATIONS[value];
                     return (
                       <label key={i} className={optionBtnCls(active, layout) + " flex-1"}>
-                        <input type="radio" name={field.id} value={opt.trim()} className="hidden" required={field.required && !formData[field.id]} onChange={e => setFormData({ ...formData, [field.id]: e.target.value })} />
-                        {opt.trim()}
+                        <input type="radio" name={field.id} value={value} className="hidden" required={field.required && !formData[field.id]} onChange={e => setFormData({ ...formData, [field.id]: e.target.value })} />
+                        <span className="leading-tight text-center">
+                          {value}
+                          {english && <><br /><span className="text-[0.75em] opacity-80">{english}</span></>}
+                        </span>
                       </label>
                     );
                   })}

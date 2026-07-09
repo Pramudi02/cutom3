@@ -34,7 +34,7 @@ export const hardcodedConfig = {
   audioUrl: '',
   heroImage: '',
   heroCouple: {
-    groom: { parents: 'Son of Mr and Mrs Gamameda Liyanage', name: 'Rajitha Nethmal', image: '/images/groom.jpeg' },
+    groom: { parents: 'Son of Mr and Mrs Gamamedaliyanage', name: 'Rajitha Nethmal', image: '/images/groom.jpeg' },
     bride: { parents: 'Daughter of Mr and Mrs Ranasinghe', name: 'Sayuri Maheesha', image: '/images/bride.jpeg' }
   },
   heroVideo: '',
