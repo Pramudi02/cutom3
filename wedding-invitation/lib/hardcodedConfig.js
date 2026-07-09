@@ -91,7 +91,7 @@ export const hardcodedConfig = {
   meta: {
     title: 'Rajitha & Sayuri Wedding Invitation',
     description: 'You are invited to celebrate the wedding of Rajitha Nethmal and Sayuri Maheesha Divyanjalee.',
-    ogImage: ''
+    ogImage: '/og-image.jpg'
   },
   sectionBackgrounds: {
     hero: '/images/h-bg.png',
@@ -100,7 +100,7 @@ export const hardcodedConfig = {
     rsvp: '/images/2ndInvitation/rsvp-bg.png',
     footer: ''
   },
-  sharePreviewImageUrl: '',
+  sharePreviewImageUrl: '/og-image.jpg',
   isActive: true,
   fallingPetals: true,
   fallingPetalsImage: '/images/bow.webp'

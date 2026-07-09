@@ -35,13 +35,33 @@ export async function generateMetadata() {
     const config = hardcodedConfig;
     const title = config.meta?.title || 'Wedding Invitation';
     const description = config.meta?.description || 'You are invited!';
-    const ogImage = config.sharePreviewImageUrl || '';
+    const ogImage = config.sharePreviewImageUrl || config.meta?.ogImage || '';
+
+    // Resolve the site's absolute base URL so social crawlers get absolute image
+    // URLs. Falls back to the domain Vercel injects automatically at build time,
+    // so no manual env var is required for share previews to work.
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
+      (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
+      'http://localhost:3000';
+
+    const images = ogImage
+      ? [{ url: ogImage, width: 1200, height: 630, alt: title }]
+      : [];
 
     return {
-      metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+      metadataBase: new URL(baseUrl),
       title,
       description,
       openGraph: {
+        type: 'website',
+        title,
+        description,
+        images,
+      },
+      twitter: {
+        card: 'summary_large_image',
         title,
         description,
         images: ogImage ? [ogImage] : [],
