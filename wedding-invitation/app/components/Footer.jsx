@@ -38,8 +38,8 @@ export default function Footer({ config, birthdayData = null, generalData = null
         
         <div className="w-12 h-px mx-auto mb-8 bg-[var(--colorSecondary)]/20" />
         
-        <p className="font-sans text-[10px] tracking-[0.4em] uppercase text-white/30">
-          Handcrafted with Love — &copy; {wedding?.year || new Date().getFullYear()} KodeXlk
+        <p className="font-sans text-[10px] tracking-[0.4em] uppercase text-white/30 leading-relaxed">
+          Handcrafted with Love<br />KodeXlk - +94750133608
         </p>
       </div>
     </footer>
