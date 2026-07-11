@@ -26,7 +26,7 @@ export const receptionConfig = {
     }
   },
   extraEvents: [],
-  audioUrl: '',
+  audioUrl: '/images/song.mp3',
   heroImage: '/images/2ndInvitation/hero-new.jpeg',
   heroVideo: '',
   heroLayout: 6,

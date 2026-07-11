@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { startBackgroundMusic, WEDDING_SONG } from '@/lib/backgroundMusic';
 
 export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenReception }) {
   const [hoveredButton, setHoveredButton] = useState(null);
@@ -17,10 +18,17 @@ export default function ElegantPhotoEnvelope({ config, onOpenInvitation, onOpenR
   const groomName = groom.fullName || groom.firstName || 'Groom';
 
   const handleChurchMassClick = () => {
+    // Start the song now (with sound) so it's already playing when the
+    // invitation opens — the shared audio element carries across navigation.
+    startBackgroundMusic(WEDDING_SONG, { muted: false });
     router.push('/rajitha-sayuri/churchmas');
   };
 
   const handleReceptionClick = () => {
+    // Start the song muted under this click so it buffers/plays silently while
+    // the intro video (which has its own audio) runs; the reception page then
+    // unmutes it on arrival without needing another tap.
+    startBackgroundMusic(WEDDING_SONG, { muted: true });
     setPlayVideo(true);
   };
 

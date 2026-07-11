@@ -28,6 +28,7 @@ const FallingPetals = lazy(() => import('./components/FallingPetals'));
 
 import { PRESET_THEMES } from '../lib/themes';
 import { getLabels } from '../lib/eventLabels';
+import { ensureBackgroundMusic, getBackgroundMusic } from '../lib/backgroundMusic';
 
 function ImageOnlySections({ images = [] }) {
   return images.map((image, index) => (
@@ -68,7 +69,6 @@ function ImageOnlySections({ images = [] }) {
 }
 
 export default function ClientHome({ config }) {
-  const audioRef = useRef(null);
   const interactionHandledRef = useRef(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [hasOpened, setHasOpened] = useState(Boolean(config.skipReveal));
@@ -76,64 +76,89 @@ export default function ClientHome({ config }) {
   // Use useSyncExternalStore for robust hydration handling
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
 
-  // Auto-play audio on first user interaction
+  // Adopt the shared background track (started on the opening page's "open
+  // invite" button). If it's already playing, unmuting needs no new gesture,
+  // so the song is audible the instant this invitation appears.
   useEffect(() => {
-    if (!config.audioUrl || !audioRef.current || interactionHandledRef.current) return;
+    if (!config.audioUrl) return;
+    const el = ensureBackgroundMusic(config.audioUrl);
+    if (!el) return;
 
-    let isAttemptingToPlay = false;
+    el.muted = false;
+    el.play()
+      .then(() => {
+        interactionHandledRef.current = true;
+        setAudioPlaying(true);
+      })
+      .catch(() => {
+        // Opened directly with no prior user gesture: buffer silently and let
+        // the first interaction unmute it.
+        el.muted = true;
+        el.play().catch(() => {});
+        setAudioPlaying(false);
+      });
+  }, [config.audioUrl]);
 
-    const playAudioOnInteract = () => {
+  // Fallback: unmute on the first interaction if autoplay-with-sound was blocked.
+  useEffect(() => {
+    if (!config.audioUrl) return;
+
+    const startAudio = () => {
       if (interactionHandledRef.current) return;
+      const el = getBackgroundMusic() || ensureBackgroundMusic(config.audioUrl);
+      if (!el) return;
+      interactionHandledRef.current = true;
 
-      if (audioRef.current && !audioPlaying && !isAttemptingToPlay) {
-        isAttemptingToPlay = true;
-        audioRef.current.play()
-          .then(() => {
-            setAudioPlaying(true);
-            interactionHandledRef.current = true;
-            window.removeEventListener('scroll', playAudioOnInteract);
-            window.removeEventListener('touchstart', playAudioOnInteract);
-            window.removeEventListener('click', playAudioOnInteract);
-          })
-          .catch(() => {
-            // Silently catch NotAllowedError and allow future attempts
-            isAttemptingToPlay = false;
-          });
-      }
+      el.muted = false;
+      el.play().catch(() => {});
+      setAudioPlaying(true);
+
+      window.removeEventListener('click', startAudio);
+      window.removeEventListener('touchstart', startAudio);
+      window.removeEventListener('scroll', startAudio);
+      window.removeEventListener('keydown', startAudio);
     };
 
-    window.addEventListener('scroll', playAudioOnInteract, { passive: true });
-    window.addEventListener('touchstart', playAudioOnInteract, { passive: true });
-    window.addEventListener('click', playAudioOnInteract, { passive: true });
+    window.addEventListener('click', startAudio, { passive: true });
+    window.addEventListener('touchstart', startAudio, { passive: true });
+    window.addEventListener('scroll', startAudio, { passive: true });
+    window.addEventListener('keydown', startAudio);
 
     return () => {
-      window.removeEventListener('scroll', playAudioOnInteract);
-      window.removeEventListener('touchstart', playAudioOnInteract);
-      window.removeEventListener('click', playAudioOnInteract);
+      window.removeEventListener('click', startAudio);
+      window.removeEventListener('touchstart', startAudio);
+      window.removeEventListener('scroll', startAudio);
+      window.removeEventListener('keydown', startAudio);
     };
-  }, [config.audioUrl, audioPlaying]);
+  }, [config.audioUrl]);
 
-  // Play audio after user opens invitation
+  // Play audio after user opens invitation (envelope reveal styles)
   const handleOpen = () => {
     setHasOpened(true);
     interactionHandledRef.current = true;
-    if (audioRef.current && config.audioUrl) {
-      audioRef.current.play().catch(() => {});
-      setAudioPlaying(true);
+    if (config.audioUrl) {
+      const el = ensureBackgroundMusic(config.audioUrl);
+      if (el) {
+        el.muted = false;
+        el.play().catch(() => {});
+        setAudioPlaying(true);
+      }
     }
   };
 
   const toggleAudio = () => {
-    if (!audioRef.current) return;
-    
+    const el = getBackgroundMusic() || ensureBackgroundMusic(config.audioUrl);
+    if (!el) return;
+
     // Explicit toggle logic ensures manual interaction takes precedence
     interactionHandledRef.current = true;
 
     if (audioPlaying) {
-      audioRef.current.pause();
+      el.pause();
       setAudioPlaying(false);
     } else {
-      audioRef.current.play().catch(() => {});
+      el.muted = false;
+      el.play().catch(() => {});
       setAudioPlaying(true);
     }
   };
@@ -237,9 +262,6 @@ export default function ClientHome({ config }) {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
-      {config.audioUrl && (
-        <audio ref={audioRef} src={config.audioUrl} loop preload="auto" style={{ display: 'none' }} />
-      )}
       <UniversalPreloader config={config} onReveal={handleOpen}>
         <AnimatePresence mode="wait">
           {!hasOpened && (
