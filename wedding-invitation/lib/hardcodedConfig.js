@@ -52,7 +52,7 @@ export const hardcodedConfig = {
   },
   rsvp: {
     whatsappNumber: '766155777',
-    deadline: 'August 08, 2026',
+    deadline: 'August 16, 2026',
     maxGuests: 2,
     dietaryTitle: null,
     dietaryItems: null,
