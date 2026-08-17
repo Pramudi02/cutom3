@@ -62,7 +62,7 @@ export const receptionConfig = {
   },
   rsvp: {
     whatsappNumber: '766155777',
-    deadline: 'August 16, 2026',
+    deadline: 'August 22, 2026',
     maxGuests: 2,
     dietaryTitle: null,
     dietaryItems: null,
